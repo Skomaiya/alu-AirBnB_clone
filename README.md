@@ -8,27 +8,18 @@ To use the Airbnb Clone Console, follow these steps:
 Clone the Repository:
 git clone https://github.com/Kalisa21/alu-AirBnB_clone.git
 
-
 Navigate to the Project Directory:
 cd airbnb-clone-console
-
 
 Run the Console:
 ./console.py
 
-
 Features
-
 User Management
-
 Create a new user.
-
 Retrieve user information.
-
 Update user details.
-
 Delete a user.
-
 
 Additional Notes
 This console application is intended for educational purposes only and may not replicate all features of the actual Airbnb platform.
