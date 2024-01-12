@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 """
 Airbnb Console: A simple console-based Airbnb clone.
 """
