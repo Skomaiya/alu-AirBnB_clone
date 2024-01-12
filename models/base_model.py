@@ -35,7 +35,7 @@ class BaseModel:
                 if key == "__class__":
                     continue
                 elif key == "created_at" or key == "updated_at":
-                    self.__dict__[key] = datetime.strptime(value, tform)
+                    self.__dict__[key] = datetime.strptime(value, time_format)
                 else:
                     self.__dict__[key] = value
         else:
