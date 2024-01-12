@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 """
 Airbnb Console: A simple console-based Airbnb clone.
 """
@@ -11,7 +11,13 @@ class HBNBCommand(cmd.Cmd):
     HBNBCommand class: A class for the command-line interface.
     """
 
-    prompt = "(hbnb) "
+    prompt = "(hbnb)"
+
+    def emptyline(self):
+        """
+        Override the emptyline method to do nothing on an empty line.
+        """
+        pass
 
     def do_quit(self, arg):
         """
@@ -29,9 +35,11 @@ class HBNBCommand(cmd.Cmd):
         """
         EOF (Ctrl+D) signal to exit the program.
         """
+        print()
         return True
 
 
 if __name__ == '__main__':
     # Instantiate HBNBCommand and start the command loop
     HBNBCommand().cmdloop()
+
