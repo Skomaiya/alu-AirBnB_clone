@@ -4,6 +4,9 @@ Airbnb Console: A simple console-based Airbnb clone.
 """
 
 import cmd
+import shlex
+from models import storage
+from models.base_model import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
@@ -12,6 +15,8 @@ class HBNBCommand(cmd.Cmd):
     """
 
     prompt = "(hbnb)"
+    
+    valid_classes = ["BaseModel"]
 
     def emptyline(self):
         """
@@ -37,6 +42,22 @@ class HBNBCommand(cmd.Cmd):
         """
         print()
         return True
+    
+    def do_create(self, arg):
+        """
+        Create a new instance of BaseModel and save it to the JSON file.
+        Usage: create <class_name>
+        """
+        commands = shlex.split(arg)
+
+        if len(commands) == 0:
+            print("** class name missing **")
+        elif commands[0] not in self.valid_classes:
+            print("** class doesn't exist **")
+        else:
+            new_instance = BaseModel()
+            new_instance.save()
+            print(new_instance.id)
 
 
 if __name__ == '__main__':
