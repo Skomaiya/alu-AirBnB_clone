@@ -5,6 +5,7 @@ Airbnb Console: A simple console-based Airbnb clone.
 
 import cmd
 import shlex
+import re
 from models import storage
 from models.base_model import BaseModel
 
@@ -185,7 +186,7 @@ class HBNBCommand(cmd.Cmd):
                     setattr(obj, attr_name, attr_value)
 
                 obj.save()
-                   
+
 if __name__ == '__main__':
     # Instantiate HBNBCommand and start the command loop
     HBNBCommand().cmdloop()
