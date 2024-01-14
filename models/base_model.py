@@ -1,43 +1,75 @@
 #!/usr/bin/python3
-"""The base model class which is going to act as a parent"""
-
-import models
+"""
+Module for the BaseModel class.
+"""
+import uuid
 from datetime import datetime
-from uuid import uuid4
+import models
 
 
 class BaseModel:
-    """Start of the Base model class"""
-
     def __init__(self, *args, **kwargs):
-        """Base model constructor taking args and kwargs"""
-        timeform = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid4())
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
-        if len(kwargs) != 0:
-            for k, v in kwargs.items():
-                if k == 'created_at' or k == 'updated_at':
-                    self.__dict__[k] = datetime.strptime(v, timeform)
+        time_format = "%Y-%m-%dT%H:%M:%S.%f"
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.utcnow()
+        self.updated_at = datetime.utcnow()
+        
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == "__class__":
+                    continue
+                elif key == "created_at" or key == "updated_at":
+                    setattr(self, key, datetime.strptime(value, time_format))
                 else:
-                    self.__dict__[k] = v
-        else:
-            models.storage.new(self)
+                    setattr(self, key, value)
+
+        models.storage.new(self)
 
     def save(self):
-        """updates the UPDATED_AT instance"""
-        self.updated_at = datetime.today()
+        """
+
+        """
+        self.updated_at = datetime.utcnow()
         models.storage.save()
 
     def to_dict(self):
-        """Returns dictionary representation of the instance"""
-        dictionary = self.__dict__.copy()
-        dictionary["created_at"] = self.created_at.isoformat()
-        dictionary["updated_at"] = self.updated_at.isoformat()
-        dictionary["__class__"] = self.__class__.__name__
-        return dictionary
+        """
+
+        """
+        inst_dict = self.__dict__.copy()
+        inst_dict["__class__"] = self.__class__.__name__
+        inst_dict["created_at"] = self.created_at.isoformat()
+        inst_dict["updated_at"] = self.updated_at.isoformat()
+
+        return inst_dict
 
     def __str__(self):
-        """Returns the string representation"""
+        """
+
+        """
         class_name = self.__class__.__name__
         return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
+
+
+if __name__ == "__main__":
+    my_model = BaseModel()
+    my_model.name = "My_First_Model"
+    my_model.my_number = 89
+    print(my_model.id)
+    print(my_model)
+    print(type(my_model.created_at))
+    print("--")
+    my_model_json = my_model.to_dict()
+    print(my_model_json)
+    print("JSON of my_model:")
+    for key in my_model_json.keys():
+        print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+
+    print("--")
+    my_new_model = BaseModel(**my_model_json)
+    print(my_new_model.id)
+    print(my_new_model)
+    print(type(my_new_model.created_at))
+
+    print("--")
+    print(my_model is my_new_model)
