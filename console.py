@@ -259,12 +259,12 @@ class HBNBCommand(cmd.Cmd):
         e_arg = command[1].split(')')[0]  # extra arguments
 
         method_dict = {
-                'all': self.do_all,
-                'show': self.do_show,
-                'destroy': self.do_destroy,
-                'update': self.do_update,
-                'count': self.do_count
-                }
+            'all': self.do_all,
+            'show': self.do_show,
+            'destroy': self.do_destroy,
+            'update': self.do_update,
+            'count': self.do_count
+        }
 
         if cmd_met in method_dict.keys():
             if cmd_met != "update":
@@ -289,4 +289,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-    
