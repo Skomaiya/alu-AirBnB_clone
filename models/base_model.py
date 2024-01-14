@@ -5,7 +5,7 @@ Created the Module: BaseModel
 import models
 from uuid import uuid4
 from datetime import datetime
- 
+import uuid
 
 class BaseModel:
     def __init__(self, *args, **kwargs):

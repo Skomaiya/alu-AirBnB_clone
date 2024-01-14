@@ -5,7 +5,7 @@ Created the Module: file_storage
 import json
 import os
 from models.base_model import BaseModel
-import models
+from models.user import user
 
 class FileStorage:
     """
