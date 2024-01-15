@@ -57,7 +57,19 @@ class TestBasemodel(unittest.TestCase):
 
         self.assertNotEqual(initial_updated_at, current_updated_at)
 
-    def test_to_dict(self):
+    def test_save_with_arg(self):
+        bm = BaseModel()
+        with self.assertRaises(TypeError):
+            bm.save(None)
+
+    def test_save_updates_file(self):
+        bm = BaseModel()
+        bm.save()
+        bmid = "BaseModel." + bm.id
+        with open("file.json", "r") as f:
+            self.assertIn(bmid, f.read())
+
+def test_to_dict(self):
         """
         Test for to_dict method
         """
@@ -84,18 +96,6 @@ class TestBasemodel(unittest.TestCase):
         self.assertIn(my_model.id, str(my_model))
 
         self.assertIn(str(my_model.__dict__), str(my_model))
-
-    def test_save_with_arg(self):
-        bm = BaseModel()
-        with self.assertRaises(TypeError):
-            bm.save(None)
-
-    def test_save_updates_file(self):
-        bm = BaseModel()
-        bm.save()
-        bmid = "BaseModel." + bm.id
-        with open("file.json", "r") as f:
-            self.assertIn(bmid, f.read())
 
 if __name__ == "__main__":
     unittest.main()
