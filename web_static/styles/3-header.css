@@ -7,7 +7,7 @@ header{
 .logo-container{
     width: 150px;
     height: 100px;
-    background-image: url(images/logo.png);
+    background-image: url(../images/logo.png);
     background-repeat: no-repeat;
     margin-left: 20px;
 }
