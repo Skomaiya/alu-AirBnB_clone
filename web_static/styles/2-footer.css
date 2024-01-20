@@ -7,4 +7,5 @@ footer {
     justify-content: center; 
     position: absolute; 
     width: 100%;
+    position: fixed;
 }
